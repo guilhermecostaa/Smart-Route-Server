@@ -10,8 +10,8 @@ async function getLocation(req, res) {
 }
 
 async function addLocation(req, res) {
-    const { nome, desc, idTipoLocalizacao, imagem} = req.body
-    const query = `insert into localizacao (nome, desc, idTipoLocalizacao, imagem) values (${nome}, ${desc}, ${idTipoLocalizacao}, ${imagem})`
+    const { nome, descricao, id_tipo_localizacao, imagem} = req.body
+    const query = `insert into localizacao (nome, descricao, id_tipo_localizacao, imagem) values (${nome}, ${descricao}, ${id_tipo_localizacao}, ${imagem})`
     con.query(query, (err, results, fields) => {
         if (err) {
             return res.send(err)
