@@ -11,7 +11,18 @@ async function getRoutes(req, res) {
 
 async function addRoute(req, res) {
     const { idPontoPartida, idTipoTransporte, idTipoRota, numDias, numPessoas} = req.body
-    const query = `insert into rota (id_ponto_partida, id_tipo_transporte, id_tipo_Rota, num_dias, num_pessoas) values (${idPontoPartida}, ${idTipoTransporte}, ${idTipoRota}, ${numDias}, ${numPessoas})`
+    const query = `insert into rotas (id_ponto_partida, id_modo_transporte, id_tipo_Rota, num_dias, num_pessoas) values (${idPontoPartida}, ${idTipoTransporte}, ${idTipoRota}, ${numDias}, ${numPessoas})`
+    con.query(query, (err, results, fields) => {
+        if (err) {
+            return res.send(err)
+        }
+        res.send(results)
+    })
+}
+
+async function deleteRoute(req, res) {
+    const { id } = req.params
+    const query = `delete from rotas where id_rota = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
             return res.send(err)
@@ -21,8 +32,25 @@ async function addRoute(req, res) {
 }
 
 async function editRoute(req, res) {
-    const { pontoPartida, tipoTransporte, tipoRota} = req.body
-    const query = `insert into rota values (${pontoPartida}, ${tipoTransporte}, ${tipoRota})`
+    const { id } = req.params
+    const { idPontoPartida, idTipoTransporte, idTipoRota, numDias, numPessoas} = req.body
+    let set = []
+    if (idPontoPartida) {
+        set.push(`id_ponto_partida = "${idPontoPartida}"`) 
+    }
+    if (idTipoTransporte) {
+        set.push(`id_modo_transporte = "${idTipoTransporte}"`) 
+    }
+    if (idTipoRota) {
+        set.push(`id_tipo_Rota = "${idTipoRota}"`) 
+    }
+    if (numDias) {
+        set.push(`num_dias = "${numDias}"`) 
+    }
+    if (numPessoas) {
+        set.push(`num_pessoas = "${numPessoas}"`) 
+    }
+    const query = `update rotas set ${set.join()} where id_rota = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
             return res.send(err)
@@ -31,4 +59,4 @@ async function editRoute(req, res) {
     })
 }
 
-module.exports = { getRoutes, addRoute, editRoute}
+module.exports = { getRoutes, addRoute, deleteRoute, editRoute}
