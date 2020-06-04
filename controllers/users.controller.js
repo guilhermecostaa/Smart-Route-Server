@@ -10,7 +10,7 @@ async function getUsers(req, res) {
 }
 
 async function addUser(req, res) {
-    const { name, email, password } = req.body
+    const { name, email, password} = req.body
     const query = `insert into user (name, email, password) values ("${name}", "${email}", "${password}")`
     con.query(query, (err, results, fields) => {
         if (err) {
