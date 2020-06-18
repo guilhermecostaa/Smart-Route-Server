@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
     const [bearer, token] = parts
 
     if (bearer !== "Bearer") {
-        return res.status(messages.token.malformated.status).send(messages.token.malformated)
+        return res.status(messages.token.malformated.status).send(messages.token.malformated) 
     }
 
 
@@ -34,32 +34,20 @@ module.exports = (req, res, next) => {
             return res.status(messages.token.invalid.status).send(messages.token.invalid)
         }
 
-        const query = `select * from user where user_id = "${decoded.id}"`
+        const query = `select * from user where id_user = "${decoded.id}"`
         con.query(query, (err, results, fields) => {
             if (err) {
+                console.log(err)
                 return res.status(messages.token.malformated.status).send(messages.token.malformated)
             }
             if (!results.length) {
                 return res.status(messages.error().status).send(messages.error("error", "User not Found"))
             }
             const user = results[0];
-            req.loggedUserId = decoded.id
-            res.send(messages.getSuccess("signIn", generateToken(user.id),
-                {
-                    id: user.id,
-                    name: user.name,
-                    email: user.email
-                }))
+            req.loggedUser = user
+            return next()
         })
 
-        // stores variables into req object
-
-        switch (decoded.profileId) {
-            case 1: req.loggedUserProfile = "student"; break
-            case 2: req.loggedUserProfile = "proponent"; break
-            case 3: req.loggedUserProfile = "admin"; break
-        }
-        return next()
     })
 
 }

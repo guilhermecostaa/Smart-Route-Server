@@ -38,7 +38,12 @@ async function signIn(req, res) {
             return res.status(messages.error().status).send(messages.error("error", "User not Found"))
         }
         const user = results[0];
-        res.send(messages.getSuccess("signIn", generateToken(user.id_user)))
+        user.id = user.id_user;
+        delete user.id_user;
+        res.send(messages.getSuccess("signIn",{ 
+            jwt: generateToken(user.id),
+            user
+        }))
     })
 }
 

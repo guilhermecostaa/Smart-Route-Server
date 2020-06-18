@@ -1,11 +1,15 @@
 const con = require("../connection")
+const jwt = require("jsonwebtoken")
+const config = require("../config")
+const messages = require("../messages")
+
 async function getLocationType(req, res) {
     const query = "select * from tipo_localizacao;"
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -14,9 +18,9 @@ async function addLocationType(req, res) {
     const query = `insert into tipo_localizacao (tipo_localizacao) values ("${tipo_localizacao}")`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -25,9 +29,9 @@ async function deleteLocationType(req, res) {
     const query = `delete from tipo_localizacao where id_tipo_localizacao = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -41,9 +45,9 @@ async function editLocationType(req, res) {
     const query = `update tipo_localizacao set ${set.join()} where id_tipo_localizacao = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 

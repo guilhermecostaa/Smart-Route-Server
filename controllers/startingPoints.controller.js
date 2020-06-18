@@ -1,11 +1,15 @@
 const con = require("../connection")
+const jwt = require("jsonwebtoken")
+const config = require("../config")
+const messages = require("../messages")
+
 async function getStartingPoints(req, res) {
     const query = "select * from ponto_partida;"
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -14,9 +18,9 @@ async function addStartingPoint(req, res) {
     const query = `INSERT INTO ponto_partida (ponto_partida) VALUES ('${ponto_partida}')`
     con.query(query, function (err, results) {
         if (err) {
-            return res.send(err);
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     });
 }
 
@@ -25,9 +29,9 @@ async function deleteStartingPoint(req, res) {
     const query = `delete from ponto_partida where id_ponto_partida = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -41,9 +45,9 @@ async function editStartingPoint(req, res) {
     const query = `update ponto_partida set ${set.join()} where id_ponto_partida = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 

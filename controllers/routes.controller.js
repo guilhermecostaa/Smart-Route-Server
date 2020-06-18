@@ -1,11 +1,15 @@
 const con = require("../connection")
+const jwt = require("jsonwebtoken")
+const config = require("../config")
+const messages = require("../messages")
+
 async function getRoutes(req, res) {
     const query = "select * from view_rotas;"
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getRoutes", results))
     })
 }
 
@@ -14,9 +18,9 @@ async function addRoute(req, res) {
     const query = `insert into rotas (id_ponto_partida, id_modo_transporte, id_tipo_Rota, num_dias, num_pessoas) values (${idPontoPartida}, ${idTipoTransporte}, ${idTipoRota}, ${numDias}, ${numPessoas})`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("addRoute", results))
     })
 }
 
@@ -25,9 +29,9 @@ async function deleteRoute(req, res) {
     const query = `delete from rotas where id_rota = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -53,9 +57,9 @@ async function editRoute(req, res) {
     const query = `update rotas set ${set.join()} where id_rota = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 

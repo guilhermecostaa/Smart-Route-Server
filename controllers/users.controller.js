@@ -1,11 +1,15 @@
 const con = require("../connection")
+const jwt = require("jsonwebtoken")
+const config = require("../config")
+const messages = require("../messages")
+
 async function getUsers(req, res) {
     const query = "select * from user;"
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -14,9 +18,9 @@ async function addUser(req, res) {
     const query = `insert into user (name, email, password) values ("${name}", "${email}", "${password}")`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -25,9 +29,9 @@ async function deleteUser(req, res) {
     const query = `delete from user where id_user = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -48,9 +52,9 @@ async function editUser(req, res) {
     const query = `update user set ${set.join()} where id_user = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 

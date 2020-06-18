@@ -1,11 +1,15 @@
 const con = require("../connection")
+const jwt = require("jsonwebtoken")
+const config = require("../config")
+const messages = require("../messages")
+
 async function getTransportType(req, res) {
     const query = "select * from modo_transporte;"
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -14,9 +18,9 @@ async function addTransportType(req, res) {
     const query = `INSERT INTO modo_transporte (modo_transporte) VALUES ("${modo_transporte}")`
     con.query(query, function (err, results) {
         if (err) {
-            return res.send(err);
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     });
 }
 
@@ -25,9 +29,9 @@ async function deleteTransportType(req, res) {
     const query = `delete from modo_transporte where id_modo_transporte = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
@@ -41,9 +45,9 @@ async function editTransportType(req, res) {
     const query = `update modo_transporte set ${set.join()} where id_modo_transporte = ${id}`
     con.query(query, (err, results, fields) => {
         if (err) {
-            return res.send(err)
+            return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(results)
+        res.send(messages.getSuccess("getUsers", results))
     })
 }
 
