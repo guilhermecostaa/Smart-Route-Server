@@ -31,7 +31,7 @@ async function deleteRoute(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("deleteRoute", results))
     })
 }
 
@@ -59,7 +59,7 @@ async function editRoute(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("editRoute", results))
     })
 }
 

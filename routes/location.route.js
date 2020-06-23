@@ -1,10 +1,11 @@
 const express = require("express")
 const router = express.Router()
 const controller = require("../controllers/location.controller")
+const auth = require("../middleware/auth.middleware")
 
-router.get("/", controller.getLocation)
-router.post("/", controller.addLocation)
-router.delete("/:id", controller.deleteLocation)
-router.put("/:id", controller.editLocation)
+router.get("/", auth, controller.getLocation)
+router.post("/", auth, controller.addLocation)
+router.delete("/:id", auth, controller.deleteLocation)
+router.put("/:id", auth, controller.editLocation)
 
 module.exports = app => app.use("/location", router)
