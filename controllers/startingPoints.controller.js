@@ -1,6 +1,4 @@
 const con = require("../connection")
-const jwt = require("jsonwebtoken")
-const config = require("../config")
 const messages = require("../messages")
 
 async function getStartingPoints(req, res) {
@@ -9,7 +7,7 @@ async function getStartingPoints(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("getStartingPoints", results))
     })
 }
 
@@ -20,7 +18,7 @@ async function addStartingPoint(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("addStartingPoint", results))
     });
 }
 
@@ -31,7 +29,7 @@ async function deleteStartingPoint(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("deleteStartingPoint", results))
     })
 }
 
@@ -47,7 +45,7 @@ async function editStartingPoint(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("editStartingPoint", results))
     })
 }
 

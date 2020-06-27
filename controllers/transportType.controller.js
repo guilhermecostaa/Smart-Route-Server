@@ -1,6 +1,4 @@
 const con = require("../connection")
-const jwt = require("jsonwebtoken")
-const config = require("../config")
 const messages = require("../messages")
 
 async function getTransportType(req, res) {
@@ -9,7 +7,7 @@ async function getTransportType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("getTransportType", results))
     })
 }
 
@@ -20,7 +18,7 @@ async function addTransportType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("addTransportType", results))
     });
 }
 
@@ -31,7 +29,7 @@ async function deleteTransportType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("deleteTransportType", results))
     })
 }
 
@@ -47,7 +45,7 @@ async function editTransportType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("editTransportType", results))
     })
 }
 

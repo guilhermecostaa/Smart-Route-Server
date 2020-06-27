@@ -1,15 +1,13 @@
 const con = require("../connection")
-const jwt = require("jsonwebtoken")
-const config = require("../config")
 const messages = require("../messages")
 
 async function getLocation(req, res) {
-    const query = "select * from localizacao;"
+    const query = "select * from view_localizacao;"
     con.query(query, (err, results, fields) => {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("getLocation", results))
     })
 }
 
@@ -20,7 +18,7 @@ async function addLocation(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("addLocation", results))
     })
 }
 
@@ -31,7 +29,7 @@ async function deleteLocation(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("deleteLocation", results))
     })
 }
 
@@ -57,7 +55,7 @@ async function editLocation(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("editLocation", results))
     })
 }
 

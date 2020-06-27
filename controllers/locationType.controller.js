@@ -1,6 +1,4 @@
 const con = require("../connection")
-const jwt = require("jsonwebtoken")
-const config = require("../config")
 const messages = require("../messages")
 
 async function getLocationType(req, res) {
@@ -9,7 +7,7 @@ async function getLocationType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("getLocationType", results))
     })
 }
 
@@ -20,7 +18,7 @@ async function addLocationType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("addLocationType", results))
     })
 }
 
@@ -31,7 +29,7 @@ async function deleteLocationType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("deleteLocationType", results))
     })
 }
 
@@ -47,7 +45,7 @@ async function editLocationType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("editLocationType", results))
     })
 }
 

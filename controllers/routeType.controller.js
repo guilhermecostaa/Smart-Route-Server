@@ -1,6 +1,4 @@
 const con = require("../connection")
-const jwt = require("jsonwebtoken")
-const config = require("../config")
 const messages = require("../messages")
 
 async function getRouteType(req, res) {
@@ -9,7 +7,7 @@ async function getRouteType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("getRouteType", results))
     })
 }
 
@@ -20,7 +18,7 @@ async function addRouteType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("addRouteType", results))
     });
 }
 
@@ -32,7 +30,7 @@ async function deleteRouteType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("deleteRouteType", results))
     })
 }
 
@@ -48,7 +46,7 @@ async function editRouteType(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("editRouteType", results))
     })
 }
 
