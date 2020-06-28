@@ -12,8 +12,8 @@ async function getLocation(req, res) {
 }
 
 async function addLocation(req, res) {
-    const { nome, descricao, id_tipo_localizacao, imagem} = req.body
-    const query = `insert into localizacao (nome, descricao, id_tipo_localizacao, imagem) values ("${nome}", "${descricao}", "${id_tipo_localizacao}", "${imagem}")`
+    const { nome, descricao, id_tipo_localizacao, imagem, latitude, longitude} = req.body
+    const query = `insert into localizacao (nome, descricao, id_tipo_localizacao, imagem, latitude, longitude) values ("${nome}", "${descricao}", "${id_tipo_localizacao}", "${imagem}",  "${latitude}",  "${longitude}")`
     con.query(query, (err, results, fields) => {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
@@ -35,7 +35,7 @@ async function deleteLocation(req, res) {
 
 async function editLocation(req, res) {
     const { id } = req.params
-    const { nome, descricao, id_tipo_localizacao, imagem} = req.body
+    const { nome, descricao, id_tipo_localizacao, imagem, latitude, longitude} = req.body
     let set = []
     if (nome) {
         set.push(`nome = "${nome}"`) 
@@ -48,6 +48,12 @@ async function editLocation(req, res) {
     }
     if (imagem) {
         set.push(`imagem = "${imagem}"`) 
+    }
+    if (latitude) {
+        set.push(`imagem = "${latitude}"`) 
+    }
+    if (longitude) {
+        set.push(`imagem = "${longitude}"`) 
     }
     
     const query = `update localizacao set ${set.join()} where id_localizacao = ${id}`
