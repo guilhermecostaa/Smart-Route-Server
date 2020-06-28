@@ -1,9 +1,9 @@
 const mysql = require('mysql')
 const con = mysql.createConnection({
-    host: "localhost",
-    user: "admin",
-    password: "12345",
-    database: "smartroute_db",
+    host: "35.197.213.232",
+    user: "smartroute",
+    password: "smartroute",
+    database: "smartroute",
 })
 
 con.connect(err => {

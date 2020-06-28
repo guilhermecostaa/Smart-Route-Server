@@ -2,7 +2,7 @@ const con = require("../connection")
 const messages = require("../messages")
 
 async function getUsers(req, res) {
-    const query = "select * from user;"
+    const query = "select id_user, name, email from user;"
     con.query(query, (err, results, fields) => {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
@@ -18,7 +18,7 @@ async function addUser(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("addUsers", results))
     })
 }
 
@@ -29,7 +29,7 @@ async function deleteUser(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("deleteUser", results))
     })
 }
 
@@ -52,7 +52,7 @@ async function editUser(req, res) {
         if (err) {
             return res.status(messages.error().status).send(messages.error("error", err.sqlMessage))
         }
-        res.send(messages.getSuccess("getUsers", results))
+        res.send(messages.getSuccess("editUser", results))
     })
 }
 
